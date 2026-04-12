@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     fullName: {
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     }
 
 }, {
-    timeStamps: true
+    timestamps: true
 }
 )
 

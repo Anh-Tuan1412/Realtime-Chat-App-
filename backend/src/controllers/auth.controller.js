@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
             return res.status(400).json({message: "Mật khẩu phải ít nhất 6 kí tự"})
         }
 
-        const user = await User.findOne({email})
+        const user = await User.findOne({email});
 
         if(user) return res.status(400).json({message: " Email đã tồn tại"});
 
@@ -51,9 +51,13 @@ export const signup = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body || {};
     try{
-        const user = await User.findOne({email})
+        if (!email || !password) {
+            return res.status(400).json({ message: "Cần điền đầy đủ email và mật khẩu" });
+        }
+
+        const user = await User.findOne({email});
 
         if(!user) return res.status(404).json({message:"Email này chưa được đăng ký"})
 
@@ -67,9 +71,9 @@ export const login = async (req, res) => {
 
         res.status(200).json({
             _id: user._id,
-            fullName: newUser.fullName,
-            email: newUser.email,
-            profilePic: newUser.profilePic,
+            fullName: user.fullName,
+            email: user.email,
+            profilePic: user.profilePic,
         });
     }catch(error){
         console.log("Error in login controller", error.message);
@@ -98,7 +102,7 @@ export const updateProfile = async (req, res) => {
             return res.status(400).json({message: "Cần cung cấp hình ảnh đại diện"})
         }
         const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        const updatedUser = await User.findByIdAndUpdate(userId, {profiflePic: uploadResponse.secure_url}, {new: true});
+        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true });
         res.status(200).json(updatedUser);
     } catch (error) {
         console.log("error in update profile", error);
