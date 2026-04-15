@@ -1,7 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
-import { useAuthStore } from '../store/useAuthStore';
-import { MessageSquare, Mail, Lock, Loader2, Eye, EyeOff,  Link} from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import { MessageSquare, Mail, Lock, Loader2, Eye, EyeOff } from "lucide-react";
 import AuthImagePattern from "../components/AuthImagePattern";
 
 const LoginPage = () => {
@@ -11,12 +11,12 @@ const LoginPage = () => {
     password: "",
   });
 
-  const {login, isLoggingIn} = useAuthStore();
+  const { login, isLoggingIn } = useAuthStore();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     login(formData);
-  }
+  };
   return (
     <div className="h-screen grid lg:grid-cols-2">
       {/* Left Side - Form */}
@@ -125,6 +125,6 @@ const LoginPage = () => {
       />
     </div>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;
