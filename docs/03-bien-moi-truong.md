@@ -23,18 +23,5 @@ CLOUDINARY_API_SECRET=your_api_secret
 - NODE_ENV: môi trường chạy (development/production)
 - CLOUDINARY\_\*: thông tin để upload ảnh
 
-## Frontend
 
-Hiện tại code đang hardcode URL:
 
-- API baseURL trong frontend/src/lib/axios.js
-- Socket URL trong frontend/src/store/useAuthStore.js
-
-Để deploy an toàn, nên đổi sang biến môi trường Vite:
-
-```env
-VITE_API_URL=https://your-backend-domain/api
-VITE_SOCKET_URL=https://your-backend-domain
-```
-
-Sau đó sửa code để đọc qua import.meta.env.
